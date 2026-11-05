@@ -33,7 +33,9 @@ export const NAV = [
 ];
 
 export type Img = { src: string; w: number; h: number; alt: string };
-const img = (src: string, w: number, h: number, alt: string): Img => ({ src: `/images/${src}`, w, h, alt });
+/** Set by the GitHub Pages build (repo sub-path). next/image does not add it when images are unoptimized. */
+export const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const img = (src: string, w: number, h: number, alt: string): Img => ({ src: `${BASE}/images/${src}`, w, h, alt });
 
 export const IMG = {
   entrance: img("studio/entrance.jpg", 1620, 1080, "Studio entrance with the That One Studio neon sign"),

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { NAV, SITE } from "@/lib/content";
+import { BASE, NAV, SITE } from "@/lib/content";
 
 export function Nav() {
   const pathname = usePathname();
@@ -35,7 +35,7 @@ export function Nav() {
       <header className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${solid ? "bg-ink/85 backdrop-blur-md" : ""}`}>
         <div className="wrap flex h-[76px] items-center justify-between">
           <Link href="/" aria-label="That One Studio, home" className="block">
-            <Image src="/images/brand/logo-light.png" alt="That One Studio" width={96} height={47} priority className="h-[44px] w-auto" />
+            <Image src={`${BASE}/images/brand/logo-light.png`} alt="That One Studio" width={96} height={47} priority className="h-[44px] w-auto" />
           </Link>
           <nav aria-label="Primary" className="hidden items-center gap-9 min-[1100px]:flex">
             {NAV.map((l) => (

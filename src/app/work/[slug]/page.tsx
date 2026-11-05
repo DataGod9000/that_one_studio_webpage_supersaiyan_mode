@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { GetInTouch } from "@/components/Blocks";
 import { Gallery } from "@/components/Gallery";
 import { Reveal, SplitHeading } from "@/components/motion";
-import { PROJECTS } from "@/lib/content";
+import { BASE, PROJECTS } from "@/lib/content";
 
 type Params = { slug: string };
 
@@ -20,7 +20,8 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
     title: p.title,
     description: `${p.title}, by ${p.by}. Shot at That One Studio, Singapore.`,
     alternates: { canonical: `/work/${p.slug}` },
-    openGraph: { images: [{ url: p.cover.src, width: p.cover.w, height: p.cover.h, alt: p.cover.alt }] },
+    // Next adds the basePath to metadata URLs itself, so strip ours.
+    openGraph: { images: [{ url: p.cover.src.slice(BASE.length), width: p.cover.w, height: p.cover.h, alt: p.cover.alt }] },
   };
 }
 
