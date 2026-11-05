@@ -69,8 +69,14 @@ MISSING OR UNVERIFIED CONTENT (owner must confirm)
   - Phone number: none published, none shown. Contact email is the published Gmail address.
 
 DEPLOYMENT
-  Vercel instructions and env-var docs: README.md. No Vercel credentials were available, so NO preview deployment was made.
-  Nothing touches the live domain.
+  GitHub Pages (static export): next.config.ts exports statically when GITHUB_PAGES=true, basePath /that_one_studio_webpage_supersaiyan_mode,
+  unoptimized images with manual base prefixing. Workflow: .github/workflows/deploy.yml (official Pages actions).
+  Target URL: https://datagod9000.github.io/that_one_studio_webpage_supersaiyan_mode/
+  Run 1 (commit 6cd5a86): build job success; deploy job failed because Pages Source was not yet set to GitHub Actions. Owner then set it.
+  Local export validation: 8 routes x 1440/390 no broken images, no overflow, one h1 each; menu navigation works.
+  Known: prefetch requests for /work/<slug> RSC payload files 404 (non-fatal, navigation works).
+  Live verification: see the final update below.
+  Vercel: instructions in README.md; no credentials, no Vercel deploy. thatonestudio.co untouched.
 
 GIT
   Pushed to origin/main (no force). Verified: git ls-remote origin main == local HEAD (a73a280 at time of push).
