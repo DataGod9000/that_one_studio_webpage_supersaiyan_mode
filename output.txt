@@ -75,7 +75,11 @@ DEPLOYMENT
   Run 1 (commit 6cd5a86): build job success; deploy job failed because Pages Source was not yet set to GitHub Actions. Owner then set it.
   Local export validation: 8 routes x 1440/390 no broken images, no overflow, one h1 each; menu navigation works.
   Known: prefetch requests for /work/<slug> RSC payload files 404 (non-fatal, navigation works).
-  Live verification: see the final update below.
+  Run 2 (commit 51fd64c, run id 41999027978): build + deploy SUCCESS.
+  LIVE URL: https://datagod9000.github.io/that_one_studio_webpage_supersaiyan_mode/  (HTTP 200)
+  Live Playwright check: 10 routes (home, studio, services, work, 4 project pages, rates, contact) x 1440 and 390:
+  all HTTP 200, 0 broken images, no horizontal overflow, one h1 each, no page errors; desktop nav link and mobile menu (7 links) work.
+  Not tested live: Safari/Firefox, real devices, mailto hand-off, POST endpoint mode.
   Vercel: instructions in README.md; no credentials, no Vercel deploy. thatonestudio.co untouched.
 
 GIT
