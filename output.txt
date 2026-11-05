@@ -1,7 +1,7 @@
 THAT ONE STUDIO: SUPERSAIYAN MODE: STATUS REPORT
 2026-11-05
 
-COMPLETION: about 90%. Phase: H/I (quality verified, git push pending verification at the time of writing; see GIT below).
+COMPLETION: about 90%. Phase: I complete (pushed and verified); preview deployment not done (no Vercel credentials).
 
 WORKSPACE
   Project: C:\Users\Whats\Downloads\Telegram Desktop\that_one_studio_webpage_supersaiyan_mode  (sibling of the old project)
@@ -73,7 +73,7 @@ DEPLOYMENT
   Nothing touches the live domain.
 
 GIT
-  See final commit/push status in the chat summary; verify with: git log origin/main -1
+  Pushed to origin/main (no force). Verified: git ls-remote origin main == local HEAD (a73a280 at time of push).
 
 NEXT STEPS
   1. Owner confirms the items above.
