@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+/* =====================================================================
+   THAT ONE STUDIO: design tokens
+   Direction: black ground, warm-white ink, one signal orange (the studio's
+   neon sign). Huge condensed type, hairline column grid, scroll-driven reveals.
+   ===================================================================== */
+:root {
+  /* colour */
+  --ink: #070706;
+  --ink-2: #0f0f0d;
+  --ink-3: #181815;
+  --paper: #f1ece1;
+  --muted: #a8a397; /* 8:1 on --ink */
+  --accent: #ff5a2c; /* 6.4:1 on --ink */
+  --line: rgba(241, 236, 225, 0.14);
+  /* spacing + layout */
+  --gutter: clamp(20px, 4vw, 64px);
+  --maxw: 1600px;
+  --section: clamp(88px, 10vw, 160px);
+  /* borders */
+  --hair: 1px solid var(--line);
+  /* motion */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --t-press: 140ms;
+  --t-hover: 220ms;
+  --t-reveal: 800ms;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-paper: var(--paper);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-line: var(--line);
+  --font-display: var(--f-display);
+  --font-sans: var(--f-sans);
+  --font-mono: var(--f-mono);
+  /* breakpoints (Tailwind defaults): sm 640 / md 768 / lg 1024 / xl 1280 */
+}
+
+html { background: var(--ink); color-scheme: dark; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--ink); color: var(--paper);
+  font-family: var(--f-sans), system-ui, sans-serif; font-size: 17px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased; overflow-x: clip;
+}
+::selection { background: var(--accent); color: var(--ink); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* Component classes live in a layer so Tailwind utilities (hidden, max-sm:*, text-[..]) can override them. */
+@layer components {
+/* ---------- Type ---------- */
+.d {
+  font-family: var(--f-display), "Arial Narrow", sans-serif; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.005em; line-height: 0.86; text-wrap-style: balance;
+}
+.d-xxl { font-size: clamp(4.2rem, 17vw, 21rem); }
+.d-xl { font-size: clamp(3.4rem, 11vw, 13rem); }
+.d-lg { font-size: clamp(2.8rem, 7.5vw, 8.5rem); }
+.d-md { font-size: clamp(2.2rem, 4.6vw, 5rem); }
+.outline { color: transparent; -webkit-text-stroke: 2px var(--paper); }
+@media (max-width: 640px) { .outline { -webkit-text-stroke-width: 1.5px; } }
+.ghost { color: transparent; -webkit-text-stroke: 2px rgba(241, 236, 225, 0.2); }
+.accent { color: var(--accent); }
+.eyebrow {
+  font-family: var(--f-mono), monospace; font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
+}
+.lede { font-size: clamp(1.05rem, 1.4vw, 1.3rem); color: var(--muted); max-width: 50ch; text-wrap-style: pretty; }
+
+/* ---------- Layout ---------- */
+.wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+.section { padding-block: var(--section); }
+.rule { border-top: var(--hair); }
+
+/* Hairline column grid, fixed behind the page (signature of the layout) */
+.gridlines { position: fixed; inset: 0; z-index: 5; pointer-events: none; display: grid; grid-template-columns: repeat(3, 1fr); padding-inline: var(--gutter); max-width: var(--maxw); margin-inline: auto; }
+.gridlines i { border-left: var(--hair); }
+.gridlines i:last-child { border-right: var(--hair); }
+@media (min-width: 768px) { .gridlines { grid-template-columns: repeat(4, 1fr); } }
+
+/* Fixed right rail (desktop) */
+.rail { position: fixed; right: 0; top: 0; bottom: 0; z-index: 40; width: 56px; display: none; flex-direction: column; align-items: center; justify-content: space-between; padding: 96px 0 32px; }
+@media (min-width: 1100px) { .rail { display: flex; } }
+.vert { writing-mode: vertical-rl; transform: rotate(180deg); }
+
+/* ---------- Controls ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.7em; min-height: 54px; padding: 0 30px; white-space: nowrap;
+  font-family: var(--f-mono), monospace; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+  border: 1px solid var(--paper); border-radius: 0; cursor: pointer; background: transparent; color: var(--paper);
+  transition: background-color var(--t-hover) var(--ease-out), color var(--t-hover) var(--ease-out), border-color var(--t-hover), transform var(--t-press) var(--ease-out);
+}
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.6; cursor: progress; }
+.btn-fill { background: var(--paper); color: var(--ink); }
+.btn .arr { transition: transform var(--t-hover) var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); color: var(--ink); }
+  .btn:hover .arr { transform: translateX(5px); }
+  .ulink:hover { background-size: 100% 1px; }
+  a:hover > .frame img, .frame.zoom:hover img, button:hover .frame img { transform: scale(1.03); }
+  .rows:hover .row { opacity: 0.35; } .rows .row:hover { opacity: 1; }
+}
+.btn:focus-visible .arr { transform: translateX(5px); }
+@media (max-width: 640px) { .btn-block-sm { width: 100%; } }
+.ulink { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size 400ms var(--ease-out); padding-bottom: 2px; }
+.ulink:focus-visible { background-size: 100% 1px; }
+
+.frame { position: relative; overflow: hidden; background: var(--ink-3); }
+.frame img { transition: transform 900ms var(--ease-out); }
+.row { transition: opacity var(--t-hover) var(--ease-out); }
+
+/* Form */
+.field { display: flex; flex-direction: column; gap: 8px; }
+.field label { font-family: var(--f-mono), monospace; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.input { width: 100%; background: transparent; color: var(--paper); font: inherit; font-size: 16px; border: 0; border-bottom: 1px solid var(--line); padding: 12px 0; border-radius: 0; transition: border-color var(--t-hover); }
+.input:hover { border-color: rgba(241, 236, 225, 0.4); }
+.input:focus { outline: none; border-color: var(--accent); }
+.input[aria-invalid="true"] { border-color: #ff7a6b; }
+.input option { background: var(--ink-2); color: var(--paper); }
+.err { color: #ff8a7a; font-size: 0.85rem; }
+input[type="date"] { color-scheme: dark; }
+
+/* Marquee: constant motion is linear by design */
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee-track { display: flex; width: max-content; animation: marquee 38s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+
+@keyframes push { from { transform: scale(1.08); } to { transform: scale(1); } }
+.push { animation: push 2.6s var(--ease-out) both; }
+@media (prefers-reduced-motion: reduce) { .push { animation: none; } }
+}

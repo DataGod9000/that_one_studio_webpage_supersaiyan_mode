@@ -1,0 +1,82 @@
+THAT ONE STUDIO: SUPERSAIYAN MODE: STATUS REPORT
+2026-11-05
+
+COMPLETION: about 90%. Phase: H/I (quality verified, git push pending verification at the time of writing; see GIT below).
+
+WORKSPACE
+  Project: C:\Users\Whats\Downloads\Telegram Desktop\that_one_studio_webpage_supersaiyan_mode  (sibling of the old project)
+  The existing project folder "a2" was only READ from (images and a few reusable components copied). It was not modified.
+  Remote: origin = https://github.com/DataGod9000/that_one_studio_webpage_supersaiyan_mode.git  (repo was empty when cloned)
+
+REVERSE-ENGINEERING BYRA (Playwright, real inspection)
+  Captured 1440 and 390 scroll journeys (12 + 6 screenshots, contact sheets), computed styles and structure.
+  Findings: black ground; Bebas Neue / Poppins; 630px outlined hero word behind a 160px headline; 560px "20" numeral;
+  faint vertical hairline grid across the whole page; fixed right rail (social icons, "back to top"); scroll-driven letter
+  highlights (Webflow IX2, no GSAP); scattered image collage; ticker of service names; index-style portfolio list with images;
+  giant two-tone "GET IN TOUCH"; hamburger menu only; mobile keeps 2 grid lines, single column, drops the rail.
+  Tablet (768) was not separately captured on BYRA; the 390 and 1440 captures were used.
+  Adapted, not copied: structure and principles only. Fonts, copy, colours, imagery and code are original to this project.
+
+DESIGN DIRECTION
+  Near-black / warm white / one orange accent (from the studio's neon sign). Big Shoulders (condensed display), Manrope, JetBrains Mono.
+  Tokens in src/app/globals.css (colour, spacing, borders, motion durations and easing, breakpoints).
+
+IMPLEMENTED
+  Pages: Home, Studio, Services, Work (+4 project pages), Rates, Contact, 404, sitemap.xml, robots.txt.
+  Signature elements: fixed hairline column grid, right rail, hero with scroll-drifting stroked word, scroll-lit headline words,
+  oversized numerals, marquee ticker, facilities collage with per-image parallax, hover-preview index lists (cursor-following
+  image on desktop, thumbnails on touch), giant "GET IN / TOUCH" closing block, full-screen clip-path menu, accent page curtain.
+  Contact: validated form; with no backend it opens the visitor's email app and says nothing is sent until they press send.
+  NEXT_PUBLIC_ENQUIRY_ENDPOINT enables real POST submission (written, NOT tested against a live endpoint).
+  SEO: per-page metadata, canonical, Open Graph, LocalBusiness JSON-LD, sitemap, robots.
+  Accessibility: skip link, landmarks, labelled fields, aria-invalid + role=alert, focus return in menu and lightbox, reduced-motion.
+
+SKILLS AND MCPs ACTUALLY USED
+  Taste (design-taste-frontend): loaded earlier in this session; its content rules applied. Its HTML kit/checkers were not used.
+  Emil (emil-design-eng): loaded and applied: strong custom easing curves, press scale, hover gated to hover:hover, transform/opacity only.
+  Ponytail: loaded and applied: reused the verified components, no extra backend/CMS/dependency beyond "motion".
+  Impeccable: loaded and run: critique (degraded single-context: no sub-agents were spawned because none were requested),
+    detector on src = 0 findings. Score 25/32. Snapshot saved in .impeccable/critique/ (git-ignored). 4 issues fixed.
+  Playwright MCP: used throughout (BYRA inspection, screenshots, route/overflow/console/hydration checks, form, menu, lightbox, hover).
+  Figma MCP: connected earlier in the session; no Figma file was provided, so nothing was inspected or created in Figma.
+  OmniRoute: not installed, not used. No model provider was changed.
+
+BROWSER VALIDATION (production build, localhost:3300)
+  10 routes x 3 widths (1440, 768, 390): no horizontal overflow (after fixing one list-title overflow at 390), no broken images, one h1 each.
+  Console/page errors: none, including with prefers-reduced-motion on and off (a hydration mismatch under reduced motion was found and fixed).
+  Menu opens/closes (button, Esc, navigation); lightbox opens, arrows, Esc; hover preview image appears; form shows 3 errors on empty
+  submit, honest mailto status on valid submit; type=Set+building prefill works; first Tab stop is the skip link.
+  Lighthouse (mobile preset, local prod build): home 100/100/100/100, studio 97/100/100/100, work 92/100/100/100,
+  services 95/100/100/100, rates 95/100/100/100, contact 96/100/100/100 (Perf/A11y/BP/SEO).
+  Production build: passes (15 static routes). ESLint: clean. tsc: clean.
+
+NOT TESTED
+  Safari/Firefox; a real screen reader; real devices; mailto hand-off with an actual mail client; POST endpoint mode; slow networks.
+  BYRA tablet breakpoint comparison. Screenshots at 1024 and 768 were taken for home, studio and work only.
+
+OUTSTANDING ISSUES
+  - Build warning from next/font: "Failed to find font override values for Big Shoulders" (cosmetic: fallback metrics only).
+  - Images: JJ Lin portraits are about 1 MB each; consider re-exporting if the owner supplies originals.
+  - Desktop nav links are 0.78rem mono caps; legible but small.
+
+MISSING OR UNVERIFIED CONTENT (owner must confirm)
+  - Ceiling height conflict on the old site: 20.0 ft (home) vs 7.0 m (facilities page). 7.0 m is shown.
+  - Rates are the old site's published figures only (full day 10h SGD 1,100; half day 5h SGD 600; GST + service charge included).
+    No booking terms, deposits or cancellation policy exist publicly; none are shown.
+  - Project image-to-project attribution was inferred visually because the old site groups images unreliably.
+    Confirm all four projects and the image rights/credits (Reuben Foong, Biome Entertainment, Heng Films).
+  - No project descriptions, testimonials or video exist; none invented. Hero uses a photograph.
+  - Phone number: none published, none shown. Contact email is the published Gmail address.
+
+DEPLOYMENT
+  Vercel instructions and env-var docs: README.md. No Vercel credentials were available, so NO preview deployment was made.
+  Nothing touches the live domain.
+
+GIT
+  See final commit/push status in the chat summary; verify with: git log origin/main -1
+
+NEXT STEPS
+  1. Owner confirms the items above.
+  2. Import the repo in Vercel, set NEXT_PUBLIC_SITE_URL (and NEXT_PUBLIC_ENQUIRY_ENDPOINT once a form service exists), deploy a preview.
+  3. Test a real enquiry end to end; review the preview on real phones.
+  4. Only then consider attaching the production domain.
